@@ -1,0 +1,11 @@
+name: Markdown Sample
+modules:
+  activate:
+    - workshop-overview
+    - exercises/learning-center
+    - exercises/app-accelerators
+    - exercises/push-to-git
+    - exercises/apply-workload
+    - exercises/path-to-prod
+    - exercises/vac
+    - workshop-summary

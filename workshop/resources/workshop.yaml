@@ -1,0 +1,120 @@
+#@ load("@ytt:data", "data")
+#@ load("@ytt:base64", "base64")
+#@ load("@ytt:json", "json")
+---
+apiVersion: learningcenter.tanzu.vmware.com/v1beta1
+kind: Workshop
+metadata:
+  name: sales-workshop
+spec:
+  title: TAP & VAC Sales
+  description: A workshop that demonstrates some of the capabilities of VMware Tanzu Application Platform and VMware Application Catalog.
+  vendor: tanzu.vmware.com
+  difficulty: beginner
+  duration: 60m
+  url: https://github.com/tsalm-pivotal/tap-sales-workshop
+  content:
+    image: #@ "{}/tap-workshop/sales-workshop:latest".format(data.values.container_registry.hostname)
+    files: #@ "github.com/{}/tap-sales-workshop/workshop?ref={}".format(data.values.workshop_git.username,data.values.workshop_git.branch)
+  session:
+    namespaces:
+      budget: custom
+    applications:
+      terminal:
+        enabled: true
+        layout: split
+      console:
+        enabled: true
+        vendor: octant
+      editor:
+        enabled: true
+    env: 
+    - name: TAP_INGRESS
+      value: #@ data.values.tap.ingress_domain
+    - name: CONTAINER_REGISTRY_HOSTNAME
+      value: #@ data.values.container_registry.hostname
+    - name: CONTAINER_REGISTRY_USERNAME
+      value: #@ data.values.container_registry.username
+    - name: CONTAINER_REGISTRY_PASSWORD
+      value: #@ data.values.container_registry.password
+    - name: CONTAINER_REGISTRY_REPOSITORY
+      value: #@ data.values.container_registry.repository
+    objects:
+      - apiVersion: v1
+        kind: LimitRange
+        metadata:
+          name: resource-limits
+        spec:
+          limits:
+            - type: PersistentVolumeClaim
+              max:
+                storage: 10Gi
+      # Permissions for tap-sa (Supply Chain)
+      - apiVersion: v1
+        kind: Secret
+        metadata:
+          name: tanzu-net-credentials
+        type: kubernetes.io/dockerconfigjson
+        data:
+          #@ docker_auth = base64.encode("{}:{}".format(data.values.tanzunet.username, data.values.tanzunet.password))
+          #@ docker_creds = {"username": data.values.tanzunet.username, "password": data.values.tanzunet.password, "auth": docker_auth}
+          .dockerconfigjson: #@ base64.encode(json.encode({"auths": {"registry.tanzu.vmware.com": docker_creds}}))
+      - apiVersion: v1
+        kind: ServiceAccount
+        metadata:
+          name: default
+        secrets:
+          - name: registry-credentials
+        imagePullSecrets:
+          - name: registry-credentials
+          - name: tap-registry
+      - apiVersion: rbac.authorization.k8s.io/v1
+        kind: RoleBinding
+        metadata:
+          name: default-permit-deliverable
+        roleRef:
+          apiGroup: rbac.authorization.k8s.io
+          kind: ClusterRole
+          name: deliverable
+        subjects:
+          - kind: ServiceAccount
+            name: default
+      - apiVersion: rbac.authorization.k8s.io/v1
+        kind: RoleBinding
+        metadata:
+          name: default-permit-workload
+        roleRef:
+          apiGroup: rbac.authorization.k8s.io
+          kind: ClusterRole
+          name: workload
+        subjects:
+          - kind: ServiceAccount
+            name: default
+
+      # Install grype
+      - apiVersion: packaging.carvel.dev/v1alpha1
+        kind: PackageInstall
+        metadata:
+          name: $(session_namespace)-grype
+          namespace: tap-install
+        spec:
+          serviceAccountName: tap-install-sa
+          packageRef:
+            refName: grype.scanning.apps.tanzu.vmware.com
+            versionSelection:
+              constraints: ">=0.0.0"
+              prereleases:
+                identifiers: [beta, build]
+          values:
+          - secretRef:
+              name: $(session_namespace)-grype-values
+      - apiVersion: v1
+        kind: Secret
+        metadata:
+          name: $(session_namespace)-grype-values
+          namespace: tap-install
+        stringData:
+          values.yaml: |
+            ---
+            namespace: $(session_namespace)
+            targetImagePullSecret: registry-credentials

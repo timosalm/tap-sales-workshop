@@ -1,0 +1,20 @@
+apiVersion: learningcenter.tanzu.vmware.com/v1beta1
+kind: TrainingPortal
+metadata:
+  name: sales-workshops
+spec:
+  portal:
+    title: Workshops for Sales
+    ingress:
+        hostname: sales-workshops
+    registration:
+        type: anonymous
+    updates:
+      workshop: true
+    sessions:
+      maximum: 40
+    reserved: 1
+  workshops:
+    - name: sales-workshop
+      expires: 200m
+      orphaned: 200m

@@ -1,0 +1,1 @@
+The goal of this workshop was to get familiar with capabilities VMware Tanzu Application Platform and VMware Application Catalog provide.
