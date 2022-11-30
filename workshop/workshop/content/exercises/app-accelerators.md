@@ -14,4 +14,5 @@ clear: true
 ... and as IDE plugin.
 ```editor:execute-command
 command: tanzu-app-accelerator.showAccelerator
+args: []
 ```
