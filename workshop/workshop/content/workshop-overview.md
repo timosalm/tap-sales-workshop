@@ -25,7 +25,7 @@ text: {{ kubernetes_token }}
 
 Now, click the following link to open a new tab to Kubeapps. In the login screen, paste your token into the text field, and click "Login".  
 ```dashboard:open-url
-url: https://kubeapps.{{ ingress_domain }}/#/c/default/ns/{{ session_namespace }}/apps
+url: https://kubeapps.{{ ENV_TAP_INGRESS }}/#/c/default/ns/{{ session_namespace }}/apps
 ```
 
 
