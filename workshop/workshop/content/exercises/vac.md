@@ -14,7 +14,7 @@ clear: true
 ```editor:append-lines-to-file
 file: ~/inclusion/config/workload.yaml
 text: |
-    serviceClaims:
+      serviceClaims:
       - name: db
         ref:
           apiVersion: services.apps.tanzu.vmware.com/v1alpha1

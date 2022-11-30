@@ -12,6 +12,9 @@ RUN cd /tmp && tar -xvf "tanzu-framework-linux-amd64.tar" -C /tmp && \
     tanzu plugin install --local cli all && \ 
     chmod -R 755 /home/eduk8s/.config/tanzu
 
+RUN curl -L -o /usr/local/bin/kp https://github.com/vmware-tanzu/kpack-cli/releases/download/v0.4.2/kp-linux-0.4.2 && \
+  chmod 755 /usr/local/bin/kp
+
 # Utilities
 RUN apt-get update && apt-get install -y unzip openjdk-11-jdk moreutils
 
