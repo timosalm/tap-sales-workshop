@@ -12,7 +12,7 @@ clear: true
 ```
 ... and configure the binding to them with the provided information in the Workload.
 ```editor:append-lines-to-file
-file: ~/tmf-product-catalog-management-api-java/Tiltfile
+file: ~/inclusion/config/workload.yaml
 text: |
     serviceClaims:
       - name: db
@@ -31,7 +31,7 @@ clear: true
 
 After our update to the application is deployed we can see that all intances are bound to the same database by refreshing our application in the browser.
 ```dashboard:open-url
-url: https://emoji-inclusion-{{ session_namespace }}.{{ ENV_TAP_INGRESS }}
+url: https://inclusion-{{ session_namespace }}.{{ ENV_TAP_INGRESS }}
 ```
 
 

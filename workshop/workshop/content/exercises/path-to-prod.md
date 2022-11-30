@@ -1,11 +1,11 @@
 Let's now have a closer look at the path to production for our use-case for which we added one custom step to the ones that are out-of-the-box available with TAP.
 ```dashboard:open-url
-url: https://tap-gui.{{ ENV_TAP_INGRESS }}/supply-chain/host/{{ session_namespace }}/emoji-inclusion
+url: https://tap-gui.{{ ENV_TAP_INGRESS }}/supply-chain/host/{{ session_namespace }}/inclusion
 ```
 
 After our application is deployed, we can open our application in the browser. By refreshing it, we can see that it's horizontally scaled and multiple instances are running.
 ```dashboard:open-url
-url: https://emoji-inclusion-{{ session_namespace }}.{{ ENV_TAP_INGRESS }}
+url: https://inclusion-{{ session_namespace }}.{{ ENV_TAP_INGRESS }}
 ```
 
 
