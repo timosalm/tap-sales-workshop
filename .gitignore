@@ -11,4 +11,7 @@ values.yaml
 ### VS Code ###
 .vscode/
 
+*.vsix
+
+workshop/values.yaml
 workshop/tanzu-framework-linux-amd64.tar

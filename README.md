@@ -7,7 +7,7 @@ A [Learning Center for VMware Tanzu](https://docs.vmware.com/en/Tanzu-Applicatio
 - A TAP 1.3 environment with OOTB Testing/Scanning Supply Chain installed
 
 ## Workshop installation
-Download the Tanzu CLI for Linux to the root of this sub-directory.
+Download the Tanzu CLI for Linux, `Tanzu App Accelerator Extension for Visual Studio Code`, and the `Tanzu Developer Tools for Visual Studio Code` to the root of the workshop sub-directory.
 Create a public project called **tap-workshop** in your registry instance. 
 
 There is a Dockerfile in the `workshop` directory of this repo. From that directory, build a Docker image and push it to the project you created:

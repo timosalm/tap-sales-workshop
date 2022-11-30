@@ -13,7 +13,23 @@ RUN cd /tmp && tar -xvf "tanzu-framework-linux-amd64.tar" -C /tmp && \
     chmod -R 755 /home/eduk8s/.config/tanzu
 
 # Utilities
-RUN apt-get update && apt-get install -y unzip moreutils
+RUN apt-get update && apt-get install -y unzip openjdk-11-jdk moreutils
+
+# Install Tanzu Dev Tools
+COPY tanzu-vscode-extension.vsix /tmp
+COPY tanzu-app-accelerator.vsix /tmp
+RUN curl -fsSL https://code-server.dev/install.sh | sh -s -- --version=4.8.3
+RUN cp -rf /usr/lib/code-server/* /opt/code-server/
+RUN rm -rf /usr/lib/code-server /usr/bin/code-server
+
+RUN code-server --install-extension /tmp/tanzu-vscode-extension.vsix
+RUN code-server --install-extension /tmp/tanzu-app-accelerator.vsix
+RUN chown -R eduk8s:users /home/eduk8s/.cache
+RUN chown -R eduk8s:users /home/eduk8s/.local
+RUN chown -R eduk8s:users /home/eduk8s/.config
+
+RUN curl -fsSL https://raw.githubusercontent.com/tilt-dev/tilt/master/scripts/install.sh | bash 
+RUN chown -R eduk8s:users /home/eduk8s/.tilt-dev
 
 # Cleanup directory
 
