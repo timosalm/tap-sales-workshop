@@ -20,7 +20,7 @@ url: https://marketplace.cloud.vmware.com/applicationcatalog/view
 ##### KubeApps
 Copy your user token below to use to login to kubeapps in the next step.
 ```workshop:copy
-text: {{ ENV_NS_USER_TOKEN }}
+text: {{ kubernetes_token }}
 ```
 
 Now, click the following link to open a new tab to Kubeapps. In the login screen, paste your token into the text field, and click "Login".  
