@@ -1,6 +1,6 @@
 modules:
     workshop-overview:
-        name: Workshop Overview
+        name: Set up your browser
         exit_sign: Learning Center
     exercises/learning-center:
         name: A platform for creating and self-hosting workshops

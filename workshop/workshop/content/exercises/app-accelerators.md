@@ -15,3 +15,5 @@ clear: true
 ```editor:execute-command
 command: workbench.view.extension.tanzu-app-accelerator
 ```
+
+Select the **Inclusion** accelerator from the list and click **Generate Project**. A new tab with the project will be opened. You can close it as we will use the embedded editor in Learning Center.

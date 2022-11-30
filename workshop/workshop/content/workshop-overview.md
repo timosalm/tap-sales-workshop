@@ -1,9 +1,4 @@
 
-##### VMware Tanzu Application Platform GUI
-```dashboard:open-url
-url: https://tap-gui.emea.end2end.link/create
-```
-
 ##### VMware Application Catalog
 **Important**: For the next sections, it is vital that you  make sure to sign-in to cloud.vmware.com with your **@vmware.com** email address and select the **"Tanzu End to End"** organization. Please be careful not to alter the services or configurations of the clusters in these environments as they are shared for the entire End to End Demo Environment.
 
