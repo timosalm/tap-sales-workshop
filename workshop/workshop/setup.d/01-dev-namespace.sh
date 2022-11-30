@@ -37,12 +37,12 @@ spec:
           - name: source-sub-path
         steps:
           - name: test
-            image: maven:3-openjdk-11
+            image: gradle
             script: |-
               cd `mktemp -d`
               wget -qO- $(params.source-url) | tar xvz -m
               cd $(params.source-sub-path)
-              mvn test
+             ./mvnw test
 EOF
 cat << EOF | kubectl apply -f -
 apiVersion: scanning.apps.tanzu.vmware.com/v1beta1
