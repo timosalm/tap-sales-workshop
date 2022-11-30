@@ -59,15 +59,6 @@ spec:
           #@ docker_auth = base64.encode("{}:{}".format(data.values.tanzunet.username, data.values.tanzunet.password))
           #@ docker_creds = {"username": data.values.tanzunet.username, "password": data.values.tanzunet.password, "auth": docker_auth}
           .dockerconfigjson: #@ base64.encode(json.encode({"auths": {"registry.tanzu.vmware.com": docker_creds}}))
-      - apiVersion: v1
-        kind: ServiceAccount
-        metadata:
-          name: default
-        secrets:
-          - name: registry-credentials
-        imagePullSecrets:
-          - name: registry-credentials
-          - name: tap-registry
       - apiVersion: rbac.authorization.k8s.io/v1
         kind: RoleBinding
         metadata:
@@ -79,6 +70,7 @@ spec:
         subjects:
           - kind: ServiceAccount
             name: default
+            namespace: $(session_namespace)
       - apiVersion: rbac.authorization.k8s.io/v1
         kind: RoleBinding
         metadata:
@@ -90,6 +82,23 @@ spec:
         subjects:
           - kind: ServiceAccount
             name: default
+            namespace: $(session_namespace)
+
+       # Permissions for workshop session
+      - apiVersion: rbac.authorization.k8s.io/v1
+        kind: RoleBinding
+        metadata:
+          name: $(session_namespace)-session-crb
+          namespace: $(session_namespace)
+        roleRef:
+          apiGroup: rbac.authorization.k8s.io
+          kind: ClusterRole
+          name: cluster-admin
+        subjects:
+          - kind: ServiceAccount
+            namespace: $(workshop_namespace)
+            name: $(service_account)
+
 
       # Install grype
       - apiVersion: packaging.carvel.dev/v1alpha1

@@ -10,3 +10,5 @@ values.yaml
 
 ### VS Code ###
 .vscode/
+
+workshop/tanzu-framework-linux-amd64.tar

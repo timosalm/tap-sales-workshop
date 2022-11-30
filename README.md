@@ -23,17 +23,7 @@ cp values-example.yaml values.yaml
 Run the installation script.
 ```
 ./install.sh
-```
-
-You also have to install the github-source-controller in the cluster with the files available [here](/github-source-controller/k8s).
-```
-kubectl apply -f github-source-controller/k8s/kpack-image.yaml 
-# Wait until the image is available in the registry
-kubectl apply -f github-source-controller/k8s/crds
-kubectl apply -f github-source-controller/k8s/deployment.yaml
-kubectl get httpproxy -n github-source-controller
-```
-Configure a Github Webhook for the external url of the controller. 
+``` 
 
 ## Debug
 ```
