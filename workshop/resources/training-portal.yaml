@@ -1,3 +1,5 @@
+#@ load("@ytt:data", "data")
+---
 apiVersion: learningcenter.tanzu.vmware.com/v1beta1
 kind: TrainingPortal
 metadata:

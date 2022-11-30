@@ -14,6 +14,6 @@ file: ~/inclusion/config/workload.yaml
 
 Development teams are able to initiate the continous path to production with the tanzu CLI or via GitOps.
 ```terminal:execute
-command: tanzu apps workload create -f config/workload.yaml -y
+command: tanzu apps workload create -f ~/inclusion/config/workload.yaml -y
 clear: true
 ```
