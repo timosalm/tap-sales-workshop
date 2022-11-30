@@ -16,33 +16,41 @@ metadata:
     apps.tanzu.vmware.com/pipeline: test     # (!) required
 spec:
   params:
-    - name: source-url                       # (!) required
-    - name: source-revision                  # (!) required
-    - default: .
-      name: source-sub-path
-      type: string
+  - name: source-url
+    type: string
+  - name: source-revision
+    type: string
+  - default: .
+    name: source-sub-path
+    type: string
   tasks:
-    - name: test
+  - name: test
+    params:
+    - name: source-url
+      value: $(params.source-url)
+    - name: source-revision
+      value: $(params.source-revision)
+    - name: source-sub-path
+      value: $(params.source-sub-path)
+    taskSpec:
+      metadata: {}
       params:
-        - name: source-url
-          value: $(params.source-url)
-        - name: source-revision
-          value: $(params.source-revision)
-        - name: source-sub-path
-          value: $(params.source-sub-path)
-      taskSpec:
-        params:
-          - name: source-url
-          - name: source-revision
-          - name: source-sub-path
-        steps:
-          - name: test
-            image: gradle
-            script: |-
-              cd `mktemp -d`
-              wget -qO- $(params.source-url) | tar xvz -m
-              cd $(params.source-sub-path)
-             ./mvnw test
+      - name: source-url
+        type: string
+      - name: source-revision
+        type: string
+      - name: source-sub-path
+        type: string
+      spec: null
+      steps:
+      - image: gradle
+        name: test
+        resources: {}
+        script: |-
+          cd `mktemp -d`
+          wget -qO- $(params.source-url) | tar xvz -m
+          cd $(params.source-sub-path)
+          ./mvnw test
 EOF
 cat << EOF | kubectl apply -f -
 apiVersion: scanning.apps.tanzu.vmware.com/v1beta1
