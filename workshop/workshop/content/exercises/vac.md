@@ -14,12 +14,12 @@ clear: true
 ```editor:append-lines-to-file
 file: ~/inclusion/config/workload.yaml
 text: |2
-      serviceClaims:
-      - name: db
-        ref:
-          apiVersion: services.apps.tanzu.vmware.com/v1alpha1
-          kind: ResourceClaim
-          name: db-binding-compatible
+    serviceClaims:
+    - name: db
+      ref:
+        apiVersion: services.apps.tanzu.vmware.com/v1alpha1
+        kind: ResourceClaim
+        name: db-binding-compatible
 ```
 
 After applying this configuration the required credentials for the connection to the PostgresSQL database are then **automatically mounted to the application containers as a volume** and frameworks like Spring Boot are able to automatically pick them up an configure the application.
