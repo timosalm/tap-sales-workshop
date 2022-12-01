@@ -4,7 +4,6 @@ modules:
     - exercises/vmware-application-catalog-intro
     - exercises/vmware-application-catalog-tech
     - exercises/vmware-application-catalog-deploy
-    - exercises/learning-center
     - exercises/app-accelerators
     - exercises/push-to-git
     - exercises/apply-workload

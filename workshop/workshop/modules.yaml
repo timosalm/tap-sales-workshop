@@ -8,9 +8,6 @@ modules:
     exercises/vmware-application-catalog-deploy:
         name: Deploy my image
         exit_sign: App Accelerators
-    exercises/learning-center:
-        name: A platform for creating and self-hosting workshops
-        exit_sign: App Accelerators
     exercises/app-accelerators:
         name: Bootstrap developing your applications
         exit_sign: Workload
