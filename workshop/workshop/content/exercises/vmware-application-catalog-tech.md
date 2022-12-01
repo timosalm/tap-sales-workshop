@@ -18,7 +18,7 @@ VMware Application Catalog is part of the VMware Marketplace website, when you a
 
 Open a tab to VMware Application Catalog in the **"Tanzu End to End"** organization.
 ```dashboard:open-url
-url: https://marketplace.cloud.vmware.com/applicationcatalog?overview?org_link=/csp/gateway/am/api/orgs/2f31c29c-e042-4ee4-8dbb-3e38b1f1eae5
+url: https://marketplace.cloud.vmware.com/applicationcatalog?overview&org_link=/csp/gateway/am/api/orgs/2f31c29c-e042-4ee4-8dbb-3e38b1f1eae5
 ```
 
 ![VAC Welcome Page](../images/welcome-page.png)
