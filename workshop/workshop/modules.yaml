@@ -3,7 +3,7 @@ modules:
         name: Set up your browser
         exit_sign: Learning Center
     exercises/vmware-application-catalog:
-        name: A platform for creating and manage secure artefacts
+        name: A platform to create and manage secure artefacts
         exit_sign: App Accelerators
     exercises/learning-center:
         name: A platform for creating and self-hosting workshops

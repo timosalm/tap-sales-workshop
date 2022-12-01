@@ -4,7 +4,7 @@
 - For the next sections, it is vital that you  make sure to sign-in to cloud.vmware.com with your **@vmware.com** email address and select the **"Tanzu End to End"** organization. Please be careful not to alter the services or configurations of the clusters in these environments as they are shared for the entire End to End Demo Environment.
 - The VMware Application Catalog subscription applied in the **"Tanzu End to End"** organization does not allow to generate OCI artefacts. This is a demo environment
 
-**VMware Application Catalog**, or **VAC** is formerly known as **Tanzu Application Catalog - TAC **. **VMware Application Catalog** is a **customizable** library of **trusted**, pre-packaged open-source application components that can be **built-to-spec**, are **continously maintained** and **verifiably tested for use in production** environments.
+**VMware Application Catalog**, or **VAC** is formerly known as **Tanzu Application Catalog**. **VMware Application Catalog** is a **customizable** library of **trusted**, pre-packaged open-source application components that can be **built-to-spec**, are **continously maintained** and **verifiably tested for use in production** environments.
 
 Enterprises can consume and deploy trusted and updated applications from a catalog tailored to their needs. This catalog is distributed through a private repository to internal customers.
 
