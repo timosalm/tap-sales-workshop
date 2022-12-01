@@ -28,6 +28,6 @@ The following are some high-level uses cases for VMware Application Catalog:
     - Photon OS 3.0 - 4.0
     - Debian 10 - 11
     - Distroless
-    - **Bring Your Own Image**
+    - Bring Your Own Image
 - If you are using Virtual Machines : 
     - Debian 10
