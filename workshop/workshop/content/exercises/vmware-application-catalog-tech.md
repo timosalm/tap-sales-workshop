@@ -102,10 +102,15 @@ As a result, the following will be pushed into the final registry.
 
 ###### Use the application created by VMware Application Catalog - Example of postgresql
 
-There are two ways of deploying the application previously created and pushed by VAC into your registry
+To deploy a database through the helm chart provided by VMware Application Catalog in your registry, apply the following helm command :
 
-####### Use the Command Line Interface
+```terminal:execute
+command: helm install emoji oci://harbor.emea.end2end.link/vac-global-library/charts/centos-7/postgresql --set auth.database=emoji --set global.postgresql.auth.existingSecret=db-binding-compatible
+clear: true
+```
 
-
-####### Use Kubeapps
-
+After few seconds, the database application will be deployed. You can check the "running" status thanks to the following command :
+```terminal:execute
+command: kubectl get pods
+clear: true
+```
