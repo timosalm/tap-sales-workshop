@@ -11,16 +11,3 @@ Open a tab to VMware Application Catalog.
 ```dashboard:open-url
 url: https://marketplace.cloud.vmware.com/applicationcatalog/view?org_link=/csp/gateway/am/api/orgs/2f31c29c-e042-4ee4-8dbb-3e38b1f1eae5&orgLink=/csp/gateway/am/api/orgs/2f31c29c-e042-4ee4-8dbb-3e38b1f1eae5
 ```
-
-##### KubeApps
-Copy your user token below to use to login to kubeapps in the next step.
-```workshop:copy
-text: {{ kubernetes_token }}
-```
-
-Now, click the following link to open a new tab to Kubeapps. In the login screen, paste your token into the text field, and click "Login".  
-```dashboard:open-url
-url: https://kubeapps.{{ ENV_TAP_INGRESS }}/#/c/default/ns/{{ session_namespace }}/apps
-```
-
-
