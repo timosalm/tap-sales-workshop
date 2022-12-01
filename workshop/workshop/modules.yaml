@@ -1,7 +1,4 @@
 modules:
-    workshop-overview:
-        name: Set up your browser
-        exit_sign: VAC Introduction
     exercises/vmware-application-catalog-intro:
         name: Introduction to VMware Application Catalog - VAC
         exit_sign: VAC demo
@@ -9,7 +6,7 @@ modules:
         name: A single platform to create and manage enterprise artefacts
         exit_sign: App Accelerators
     exercises/vmware-application-deploy:
-        name: Deploy my application
+        name: Deploy my image
         exit_sign: App Accelerators
     exercises/learning-center:
         name: A platform for creating and self-hosting workshops
