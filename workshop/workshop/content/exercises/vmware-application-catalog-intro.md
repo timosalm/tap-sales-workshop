@@ -1,6 +1,6 @@
 
 ##### VMware Application Catalog - Introduction
-Workshop contente Date : Dec 1, 2022
+Workshop content Date : Dec 1, 2022
 
 **VMware Application Catalog**, or **VAC** is formerly known as **Tanzu Application Catalog**. 
 
@@ -21,12 +21,12 @@ The following are some high-level uses cases for VMware Application Catalog:
 ![VAC Overview Diagram](../images/get-started-images-cicd-diagram.png)
 
 **VMware Application Catalog** can build Opensource software on top of several base Operating System :
-If you are using containers : 
+- If you are using containers : 
     - Red Hat Universal Base Image 8 & 9
     - Centos 7
     - Ubuntu 18.04 - 20.04 - 22.04
     - Photon OS 3.0 - 4.0
     - Debian 10 - 11
     - Distroless
-If you are using Virtual Machines : 
+- If you are using Virtual Machines : 
     - Debian 10
