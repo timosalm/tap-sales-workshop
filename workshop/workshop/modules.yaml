@@ -1,9 +1,12 @@
 modules:
     workshop-overview:
         name: Set up your browser
-        exit_sign: Learning Center
-    exercises/vmware-application-catalog:
-        name: A platform to create and manage secure artefacts
+        exit_sign: VAC Introduction
+    exercises/vmware-application-catalog-intro:
+        name: Introduction to VMware Application Catalog - VAC
+        exit_sign: VAC demo
+    exercises/vmware-application-catalog-tech:
+        name: A single platform to create and manage enterprise artefacts
         exit_sign: App Accelerators
     exercises/learning-center:
         name: A platform for creating and self-hosting workshops
