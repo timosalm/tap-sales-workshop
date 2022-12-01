@@ -5,7 +5,7 @@ modules:
     exercises/vmware-application-catalog-tech:
         name: A single platform to create and manage enterprise artefacts
         exit_sign: App Accelerators
-    exercises/vmware-application-deploy:
+    exercises/vmware-application-catalog-deploy:
         name: Deploy my image
         exit_sign: App Accelerators
     exercises/learning-center:
