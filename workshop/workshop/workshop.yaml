@@ -2,6 +2,7 @@ name: Markdown Sample
 modules:
   activate:
     - workshop-overview
+    - exercises/vmware-application-catalog
     - exercises/learning-center
     - exercises/app-accelerators
     - exercises/push-to-git
