@@ -1,5 +1,7 @@
 
 ##### VMware Application Catalog - Introduction
+Workshop content Date : Dec 1, 2022
+
 **Important**: 
 - For the next sections, it is vital that you  make sure to sign-in to cloud.vmware.com with your **@vmware.com** email address and select the **"Tanzu End to End"** organization. Please be careful not to alter the services or configurations of the clusters in these environments as they are shared for the entire End to End Demo Environment.
 - The VMware Application Catalog subscription applied in the **"Tanzu End to End"** organization does not allow to generate OCI artefacts. 
@@ -48,10 +50,62 @@ At the end, click on **ADD** to add the registry in the list.
 
 Now the registry is ready to use and we can generate OpenSource software.
 
-###### Generate your application - Example of postgresql
+###### Generate your application - Example of postgresql - Helm Chart and Container
 
-To 
+Click on **Catalog**, in the **Catalog Management** section, click on **My Applications**
+```dashboard:open-url
+url: https://marketplace.cloud.vmware.com/applicationcatalog/view
+```
+
+You should see the following page
+![VAC my Applications](../images/my-applications.png)
+
+To create a new application:
+1. click on **ADD NEW APPLICATIONS**
+2. Select the platform where you want to deploy the application (Kubernetes or Virtual Machines)
+
+In our case, select Kubernetes.
+![VAC select platform](../images/select-platform.png)
+
+3. Select the VMware supported base image (or you can add your own custom base image)
+
+In our case, let's select **Centos 7** as base image and click on **NEXT**.
+![VAC select base OS](../images/select-baseos.png)
+
+4. Select the application(s) you want to package on the Operating System you choose previously
+
+In our case, we want to generate only the postgresql helm chart based on the Centos 7 Operating system, so let's select the **Charts** Format and search for the **postgresql** Application.
+![VAC select application](../images/select-application.png)
+
+Click on **NEXT** to select the registry where you want the application to be pushed
+
+5. Select the registry where you want the application to be pushed
+
+**Reminder:** the current subscription in the **"Tanzu End to End"** organization doesn't allow us to push content into a registry.
+![VAC select registry](../images/select-registry.png)
+
+To compare with an organization which has a valid subscription, you should have this :
+![VAC select registry bis](../images/select-registry2.png)
+
+6. Put a **Name** and a **Description** 
+![VAC request description](../images/request-description.png)
+
+7. Summary - Validate the request by clicking on **SUBMIT**
+![VAC request summary](../images/summary.png)
+
+After submitting the request, VMware will process it and the PostgreSQL Helm chart will be pushed into your registry few minutes later (30-45min)
+
+As a result, the following will be pushed into the final registry.
+![VAC Harbor result](../images/harbor.png)
 
 
 
-###### Deploy the application - Example of postgresql
+###### Use the application created by VMware Application Catalog - Example of postgresql
+
+There are two ways of deploying the application previously created and pushed by VAC into your registry
+
+####### Use the Command Line Interface
+
+
+####### Use Kubeapps
+
