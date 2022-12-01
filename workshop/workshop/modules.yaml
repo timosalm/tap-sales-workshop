@@ -4,7 +4,7 @@ modules:
         exit_sign: VAC demo
     exercises/vmware-application-catalog-tech:
         name: A single platform to create and manage enterprise artefacts
-        exit_sign: App Accelerators
+        exit_sign: Image deployment
     exercises/vmware-application-catalog-deploy:
         name: Deploy my image
         exit_sign: App Accelerators
