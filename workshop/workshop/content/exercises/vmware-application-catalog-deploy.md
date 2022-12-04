@@ -14,5 +14,6 @@ clear: true
 After few seconds, the database application will be deployed. You can check the "running" status thanks to the following command :
 ```terminal:execute
 command: kubectl get pods
+session: 2
 clear: true
 ```
