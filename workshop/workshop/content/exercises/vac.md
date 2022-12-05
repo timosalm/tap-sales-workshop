@@ -11,7 +11,7 @@ command: tanzu service claim list -o wide
 clear: true
 ```
 ... and configure the binding to them with the provided information in the Workload.
-```editor:append-lines-to-file
+```editor:insert-lines-before-line
 file: ~/inclusion/config/workload.yaml
 line: 30
 text: |
