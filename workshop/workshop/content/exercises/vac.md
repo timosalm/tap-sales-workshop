@@ -13,6 +13,7 @@ clear: true
 ... and configure the binding to them with the provided information in the Workload.
 ```editor:append-lines-to-file
 file: ~/inclusion/config/workload.yaml
+line: -1
 text: |
     serviceClaims:
     - name: db
