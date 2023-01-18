@@ -4,9 +4,8 @@ As Julien, I now have my application in production alongside my Database to stor
 I now need to bind this application to the Database so that it starts storing data in it. 
 
 I want to configure the binding to them with the provided information in the Workload.
-```editor:insert-lines-before-line
+```editor:append-lines-to-file
 file: ~/inclusion/config/workload.yaml
-line: 30
 text: |2
     serviceClaims:
     - name: db
