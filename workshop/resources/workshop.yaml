@@ -12,7 +12,7 @@ spec:
   vendor: tanzu.vmware.com
   difficulty: beginner
   duration: 60m
-  url: https://github.com/tsalm-pivotal/tap-sales-workshop
+  url: https://github.com/tsalm-vmware/tap-sales-workshop
   content:
     image: #@ "{}/tap-workshop/sales-workshop:latest".format(data.values.container_registry.hostname)
     files: #@ "github.com/{}/tap-sales-workshop/workshop?ref={}".format(data.values.workshop_git.username,data.values.workshop_git.branch)
@@ -22,6 +22,7 @@ spec:
     applications:
       terminal:
         enabled: true
+        layout: split
       console:
         enabled: true
       editor:
@@ -38,25 +39,7 @@ spec:
     - name: CONTAINER_REGISTRY_REPOSITORY
       value: #@ data.values.container_registry.repository
     objects:
-      - apiVersion: v1
-        kind: LimitRange
-        metadata:
-          name: resource-limits
-        spec:
-          limits:
-            - type: PersistentVolumeClaim
-              max:
-                storage: 10Gi
       # Permissions for tap-sa (Supply Chain)
-      - apiVersion: v1
-        kind: Secret
-        metadata:
-          name: tanzu-net-credentials
-        type: kubernetes.io/dockerconfigjson
-        data:
-          #@ docker_auth = base64.encode("{}:{}".format(data.values.tanzunet.username, data.values.tanzunet.password))
-          #@ docker_creds = {"username": data.values.tanzunet.username, "password": data.values.tanzunet.password, "auth": docker_auth}
-          .dockerconfigjson: #@ base64.encode(json.encode({"auths": {"registry.tanzu.vmware.com": docker_creds}}))
       - apiVersion: rbac.authorization.k8s.io/v1
         kind: RoleBinding
         metadata:
@@ -81,23 +64,31 @@ spec:
           - kind: ServiceAccount
             name: default
             namespace: $(session_namespace)
-
-       # Permissions for workshop session
+      # Permissions for session
       - apiVersion: rbac.authorization.k8s.io/v1
-        kind: RoleBinding
+        kind: ClusterRole
         metadata:
-          name: $(session_namespace)-session-crb
+          name: $(session_namespace)-session-cr
+        rules:
+        - apiGroups:
+          - carto.run
+          resources:
+          - workloads
+          verbs:
+          - '*'
+      - apiVersion: rbac.authorization.k8s.io/v1
+        kind: ClusterRoleBinding
+        metadata:
+          name: $(session_namespace)-session-rb
           namespace: $(session_namespace)
         roleRef:
           apiGroup: rbac.authorization.k8s.io
           kind: ClusterRole
-          name: cluster-admin
+          name: $(session_namespace)-session-cr
         subjects:
           - kind: ServiceAccount
             namespace: $(workshop_namespace)
             name: $(service_account)
-
-
       # Install grype
       - apiVersion: packaging.carvel.dev/v1alpha1
         kind: PackageInstall
@@ -125,3 +116,57 @@ spec:
             ---
             namespace: $(session_namespace)
             targetImagePullSecret: registry-credentials
+      # Resources
+      - apiVersion: v1
+        kind: Secret
+        metadata:
+          name: registry-credentials
+        type: kubernetes.io/dockerconfigjson
+        data:
+          #@ docker_creds = {"username": data.values.container_registry.username, "password": data.values.container_registry.password}
+          .dockerconfigjson: #@ base64.encode(json.encode({"auths": {data.values.container_registry.hostname: docker_creds}}))
+      - apiVersion: v1
+        kind: Secret
+        metadata:
+          annotations:
+            tekton.dev/git-0: #@ data.values.gitops.host
+          name: git-https
+        type: kubernetes.io/basic-auth
+        stringData:
+          username: #@ data.values.gitops.username
+          password: #@ data.values.gitops.password
+      - apiVersion: tekton.dev/v1beta1
+        kind: Pipeline
+        metadata:
+          name: developer-defined-tekton-pipeline
+          labels:
+            apps.tanzu.vmware.com/pipeline: test     # (!) required
+        spec:
+          params:
+            - name: source-url                       # (!) required
+            - name: source-revision                  # (!) required
+            - name: source-sub-path
+              default: "."
+          tasks:
+            - name: test
+              params:
+                - name: source-url
+                  value: $(params.source-url)
+                - name: source-revision
+                  value: $(params.source-revision)
+                - name: source-sub-path
+                  value: $(params.source-sub-path)
+              taskSpec:
+                params:
+                  - name: source-url
+                  - name: source-revision
+                  - name: source-sub-path
+                steps:
+                  - name: test
+                    image: gradle
+                    script: |-
+                      cd `mktemp -d`
+
+                      wget -qO- $(params.source-url) | tar xvz -m
+                      cd $(params.source-sub-path)
+                      ./mvnw test

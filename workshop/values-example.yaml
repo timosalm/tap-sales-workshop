@@ -14,7 +14,7 @@ tanzunet:
   username: user@example.com
   password:
 gitops:
-  https_repository_prefix: https://github.com/tsalm-pivotal
+  https_repository_prefix: https://github.com/tsalm-vmware
   basic_auth_username:
   basic_auth_password: 
 learning_center_portal:

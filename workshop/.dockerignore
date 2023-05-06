@@ -1,4 +1,4 @@
 **
-!tanzu-framework-linux-amd64.tar
-!tanzu-vscode-extension.vsix
-!tanzu-app-accelerator.vsix
+!tanzu-framework-linux-*
+!tanzu-vscode-extension*
+!tanzu-app-accelerator*

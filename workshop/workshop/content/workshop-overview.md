@@ -7,7 +7,7 @@ In order to make the workshop flow smoothly, I will start with deploying a Sprin
 So, as a Developer, I have developed an app with the help of TAP Accelerators (I will talk to you about this in a minute) and I now want to deploy my app in TAP by using this command:
 
 ```terminal:execute
-command: tanzu apps workload create -f ~/workload.yaml -y
+command: tanzu apps workload create -f ~/samples/workload.yaml -y
 clear: true
 ```
 

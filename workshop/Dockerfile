@@ -4,35 +4,24 @@ FROM registry.tanzu.vmware.com/tanzu-application-platform/tap-packages@sha256:a8
 USER root
 
 # Tanzu CLI
-COPY tanzu-framework-linux-amd64.tar /tmp
-RUN export TANZU_CLI_NO_INIT=true
-RUN cd /tmp && tar -xvf "tanzu-framework-linux-amd64.tar" -C /tmp && \ 
-    sudo install "cli/core/v0.25.0/tanzu-core-linux_amd64" /usr/local/bin/tanzu && \ 
-    chmod 755 /usr/local/bin/tanzu && \ 
-    tanzu plugin install --local cli all && \ 
-    chmod -R 755 /home/eduk8s/.config/tanzu
-
-RUN curl -L -o /usr/local/bin/kp https://github.com/vmware-tanzu/kpack-cli/releases/download/v0.4.2/kp-linux-0.4.2 && \
-  chmod 755 /usr/local/bin/kp
-
-# Utilities
-RUN apt-get update && apt-get install -y unzip openjdk-11-jdk moreutils
+ADD tanzu-framework-linux-amd64-v0.28.1.1.tar /tmp
+RUN mv $(find /tmp/ -name 'tanzu-core-linux_amd64' -print0) /usr/local/bin/tanzu && \
+  chmod 755 /usr/local/bin/tanzu && \
+  tanzu plugin install --local /tmp/cli/ all && \
+  chmod -R 755 .config/tanzu
 
 # Install Tanzu Dev Tools
-COPY tanzu-vscode-extension.vsix /tmp
-COPY tanzu-app-accelerator.vsix /tmp
-RUN curl -fsSL https://code-server.dev/install.sh | sh -s -- --version=4.8.3
+ADD tanzu-vscode-extension-0.14.1.vsix /tmp
+ADD tanzu-app-accelerator-0.1.6.vsix /tmp
+RUN curl -fsSL https://code-server.dev/install.sh | sh -s -- --version=4.12.0
 RUN cp -rf /usr/lib/code-server/* /opt/code-server/
 RUN rm -rf /usr/lib/code-server /usr/bin/code-server
 
-RUN code-server --install-extension /tmp/tanzu-vscode-extension.vsix
-RUN code-server --install-extension /tmp/tanzu-app-accelerator.vsix
+RUN code-server --install-extension /tmp/tanzu-vscode-extension-0.14.1.vsix
+RUN code-server --install-extension /tmp/tanzu-app-accelerator-0.1.6.vsix
 RUN chown -R eduk8s:users /home/eduk8s/.cache
 RUN chown -R eduk8s:users /home/eduk8s/.local
 RUN chown -R eduk8s:users /home/eduk8s/.config
-
-RUN curl -fsSL https://raw.githubusercontent.com/tilt-dev/tilt/master/scripts/install.sh | bash 
-RUN chown -R eduk8s:users /home/eduk8s/.tilt-dev
 
 # Cleanup directory
 
@@ -41,5 +30,3 @@ RUN rm -rf /tmp/*
 USER 1001
 COPY --chown=1001:0 . /home/eduk8s/
 RUN fix-permissions /home/eduk8s
-RUN rm /home/eduk8s/tanzu-framework-linux-amd64.tar && rm /home/eduk8s/tanzu-vscode-extension.vsix \
-  && rm /home/eduk8s/tanzu-app-accelerator.vsix
