@@ -3,3 +3,4 @@
 ./Dockerfile
 ./resources
 values-example.yaml
+install.sh
