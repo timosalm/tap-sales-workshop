@@ -28,5 +28,5 @@ RUN chown -R eduk8s:users /home/eduk8s/.config
 RUN rm -rf /tmp/*
 
 USER 1001
-COPY --chown=1001:0 . /home/eduk8s/
+
 RUN fix-permissions /home/eduk8s
