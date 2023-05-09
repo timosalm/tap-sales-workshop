@@ -3,6 +3,8 @@ FROM registry.tanzu.vmware.com/tanzu-application-platform/tap-packages@sha256:a8
 # All the direct Downloads need to run as root as they are going to /usr/local/bin
 USER root
 
+RUN apt-get update && apt-get install -y moreutils
+
 # Tanzu CLI
 ADD tanzu-framework-linux-amd64-v0.28.1.1.tar /tmp
 RUN mv $(find /tmp/ -name 'tanzu-core-linux_amd64' -print0) /usr/local/bin/tanzu && \
